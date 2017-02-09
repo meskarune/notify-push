@@ -19,6 +19,14 @@ Run the client with "python notify-push-client.py"
 
 Currently hardcoded to connect to localhost:8888
 
+## Testing
+
+Use netcat to send messages to the serve and all connected clients:
+
+    nc localhost 8888
+
+Type "quit" to disconect or hit ctrl c
+
 # Todo
 
 * Add configuration file to set host and port on the client and server
