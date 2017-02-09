@@ -3,9 +3,9 @@ Push notifications out from a server to multiple clients using libnotify
 
 ## Requirements
 
-Python3
-Python asyncio
-libnotify installed on client computers
+* Python3
+* Python asyncio
+* libnotify installed on client computers
 
 ## Server
 
