@@ -27,6 +27,10 @@ Use netcat to send messages to the serve and all connected clients:
 
 Type "quit" to disconect or hit ctrl c
 
+## Create key/certificate for SSL
+
+    openssl req -nodes -newkey rsa:2048 -keyout selfsigned.key -x509 -out selfsigned.cert
+
 # Todo
 
 * Add configuration file to set host and port on the client and server
