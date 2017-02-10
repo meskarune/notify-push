@@ -29,6 +29,8 @@ Type "quit" to disconect or hit ctrl c
 
 ## Create key/certificate for SSL
 
+Make sure to set FQDN to 127.0.0.1 or whatever host you are using.
+
     openssl req -nodes -newkey rsa:2048 -keyout selfsigned.key -x509 -out selfsigned.cert
 
 # Todo
