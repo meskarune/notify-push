@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import asyncio
-
+import ssl
 
 class EchoServerClientProtocol(asyncio.Protocol):
     """Send Data in uppercase to all clients"""
@@ -30,8 +30,11 @@ class EchoServerClientProtocol(asyncio.Protocol):
                 connection.write("{0}\n".format(message.upper()).encode())
 
 if __name__ == '__main__':
+    sc = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    sc.load_cert_chain('selfsigned.cert', 'selfsigned.key')
+
     loop = asyncio.get_event_loop()
-    coro = loop.create_server(EchoServerClientProtocol, '127.0.0.1', 8888)
+    coro = loop.create_server(EchoServerClientProtocol, '127.0.0.1', 8888, ssl=sc)
     server = loop.run_until_complete(coro)
 
     # Serve requests until Ctrl+C is pressed

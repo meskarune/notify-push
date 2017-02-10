@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import asyncio
+import ssl
 import subprocess
 
 class NotifySend():
@@ -12,11 +13,12 @@ class NotifySend():
     #notify-send "This is the Title" "This is the message" -i /usr/share/icons/Adwaita/48x48/categories/preferences-system.png
 
 class EchoClientProtocol(asyncio.Protocol):
-    def __init__(self, message, loop):
+    def __init__(self, loop):
         self.loop = loop
 
     def connection_made(self, transport):
         print('Connected to server 127.0.0.1 on port 8888')
+        self.transport.write("hello this is a test message.".encode())
 
     def data_received(self, data):
         print(data.decode("utf-8", "replace").strip())
@@ -28,10 +30,9 @@ class EchoClientProtocol(asyncio.Protocol):
         self.loop.stop()
 
 if __name__ == '__main__':
+    sc = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile='selfsigned.cert')
     loop = asyncio.get_event_loop()
-    message = 'Hello World!'
-    coro = loop.create_connection(lambda: EchoClientProtocol(message, loop),
-                              '127.0.0.1', 8888)
+    coro = loop.create_connection(lambda: EchoClientProtocol(loop), '127.0.0.1', 8888, ssl=sc)
     loop.run_until_complete(coro)
     try:
         loop.run_forever()
