@@ -18,7 +18,7 @@ class EchoClientProtocol(asyncio.Protocol):
 
     def connection_made(self, transport):
         print('Connected to server 127.0.0.1 on port 8888')
-        self.transport.write("hello this is a test message.".encode())
+        transport.write("hello this is a test message.".encode())
 
     def data_received(self, data):
         print(data.decode("utf-8", "replace").strip())
